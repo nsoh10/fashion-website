@@ -1,12 +1,28 @@
 import { Button } from '@/components/ui/button';
-import { Instagram, Facebook, Twitter, Youtube, MapPin, Phone, Mail } from 'lucide-react';
+import { Instagram, Facebook, Youtube, MapPin, Phone, Mail, Music2 } from 'lucide-react';
 
 const Footer = () => {
     const socialLinks = [
-        { icon: <Instagram className="w-5 h-5" />, href: "#", label: "Instagram" },
-        { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook" },
-        { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" },
-        { icon: <Youtube className="w-5 h-5" />, href: "#", label: "YouTube" },
+        { 
+            icon: <Instagram className="w-5 h-5" />, 
+            href: "https://www.instagram.com/threadz_bigaskins", 
+            label: "Instagram" 
+        },
+        { 
+            icon: <Music2 className="w-5 h-5" />, 
+            href: "https://www.tiktok.com/@threadz_bigaskins", 
+            label: "TikTok" 
+        },
+        { 
+            icon: <Facebook className="w-5 h-5" />, 
+            href: "#", 
+            label: "Facebook" 
+        },
+        { 
+            icon: <Youtube className="w-5 h-5" />, 
+            href: "#", 
+            label: "YouTube" 
+        },
     ];
 
     const quickLinks = [
@@ -49,6 +65,8 @@ const Footer = () => {
                                 <a
                                     key={index}
                                     href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label={social.label}
                                     className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-secondary transition-luxury"
                                 >
@@ -99,7 +117,7 @@ const Footer = () => {
                             <div className="flex items-start space-x-3">
                                 <MapPin className="w-5 h-5 mt-1 text-secondary flex-shrink-0" />
                                 <div className="text-primary-foreground/80">
-                                    <div>123 Fashion District</div>
+                                    <div>Adenta Housing Christ Apostolic Church</div>
                                     <div>Accra</div>
                                 </div>
                             </div>
@@ -146,7 +164,7 @@ const Footer = () => {
                 {/* Bottom Footer */}
                 <div className="py-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center">
                     <div className="text-primary-foreground/80 text-sm">
-                        © 2024 Threadz BiGaskins. All rights reserved.
+                        2024 Threadz BiGaskins. All rights reserved.
                     </div>
                     <div className="flex space-x-6 mt-4 md:mt-0 text-sm">
                         <a href="#" className="text-primary-foreground/80 hover:text-secondary transition-luxury">

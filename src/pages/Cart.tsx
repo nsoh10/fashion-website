@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
 
 const Cart = () => {
     const { items, updateQuantity, removeItem, total, clearCart } = useCart();
@@ -13,6 +13,10 @@ const Cart = () => {
         if (items.length > 0) {
             navigate('/payment');
         }
+    };
+
+    const handleBack = () => {
+        navigate(-1);
     };
 
     if (items.length === 0) {
@@ -29,6 +33,10 @@ const Cart = () => {
                         <p className="text-muted-foreground mb-6">
                             Start exploring our luxury fashion collection
                         </p>
+                        <Button variant="outline" onClick={handleBack} className="mb-4 w-full">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Back to Shopping
+                        </Button>
                         <Link to="/">
                             <Button variant="luxury" className="w-full">
                                 Continue Shopping
@@ -43,6 +51,14 @@ const Cart = () => {
     return (
         <div className="min-h-screen bg-background p-4">
             <div className="container mx-auto max-w-4xl">
+                <Button 
+                    variant="ghost" 
+                    onClick={handleBack}
+                    className="mb-4 flex items-center gap-2"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Back
+                </Button>
                 <div className="flex items-center justify-between mb-8">
                     <h1 className="text-3xl font-serif">Shopping Cart</h1>
                     <Button variant="outline" onClick={clearCart} size="sm">
@@ -60,7 +76,7 @@ const Cart = () => {
                                         <div className="flex-1">
                                             <h3 className="font-serif text-lg">{item.name}</h3>
                                             <p className="text-muted-foreground">
-                                                ${item.price.toFixed(2)}
+                                                ₵{item.price.toFixed(2)}
                                                 {item.size && ` • Size: ${item.size}`}
                                                 {item.color && ` • ${item.color}`}
                                             </p>
@@ -105,7 +121,7 @@ const Cart = () => {
                             <CardContent className="space-y-4">
                                 <div className="flex justify-between">
                                     <span>Subtotal</span>
-                                    <span>${total.toFixed(2)}</span>
+                                    <span>₵{total.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span>Shipping</span>
@@ -114,7 +130,7 @@ const Cart = () => {
                                 <div className="border-t pt-4">
                                     <div className="flex justify-between font-medium">
                                         <span>Total</span>
-                                        <span>${total.toFixed(2)}</span>
+                                        <span>₵{total.toFixed(2)}</span>
                                     </div>
                                 </div>
                             </CardContent>

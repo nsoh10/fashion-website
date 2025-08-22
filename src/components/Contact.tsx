@@ -10,17 +10,17 @@ const Contact = () => {
         {
             icon: <MapPin className="w-5 h-5" />,
             title: "Visit Our Studio",
-            details: ["123 Fashion District", "New York, NY 10001"],
+            details: [" Adenta Housing", "Christ Apostolic Church"],
         },
         {
             icon: <Phone className="w-5 h-5" />,
             title: "Call Us",
-            details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+            details: ["0544701851", "0248167891"],
         },
         {
             icon: <Mail className="w-5 h-5" />,
             title: "Email Us",
-            details: ["info@threadzbigskins.com", "support@threadzbigskins.com"],
+            details: ["Threadzbigaskins@gmail.com", "support@threadzbigskins.com"],
         },
         {
             icon: <Clock className="w-5 h-5" />,

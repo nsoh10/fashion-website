@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { CreditCard, Lock } from 'lucide-react';
+import { CreditCard, Lock, ArrowLeft } from 'lucide-react';
 
 const Payment = () => {
     const [paymentData, setPaymentData] = useState({
@@ -48,6 +48,10 @@ const Payment = () => {
         }, 2000);
     };
 
+    const handleBack = () => {
+        navigate(-1);
+    };
+
     if (items.length === 0) {
         navigate('/cart');
         return null;
@@ -56,6 +60,14 @@ const Payment = () => {
     return (
         <div className="min-h-screen bg-background p-4">
             <div className="container mx-auto max-w-4xl">
+                <Button 
+                    variant="ghost" 
+                    onClick={handleBack}
+                    className="mb-4 flex items-center gap-2"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Cart
+                </Button>
                 <h1 className="text-3xl font-serif mb-8">Secure Checkout</h1>
 
                 <div className="grid gap-8 lg:grid-cols-3">
@@ -209,7 +221,7 @@ const Payment = () => {
                                 disabled={isProcessing}
                             >
                                 <Lock className="w-4 h-4 mr-2" />
-                                {isProcessing ? 'Processing Payment...' : `Complete Order - $${total.toFixed(2)}`}
+                                {isProcessing ? 'Processing Payment...' : `Complete Order - ₵${total.toFixed(2)}`}
                             </Button>
                         </form>
                     </div>
@@ -226,13 +238,13 @@ const Payment = () => {
                                             <p className="font-medium">{item.name}</p>
                                             <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
                                         </div>
-                                        <span>${(item.price * item.quantity).toFixed(2)}</span>
+                                        <span>₵{(item.price * item.quantity).toFixed(2)}</span>
                                     </div>
                                 ))}
                                 <div className="border-t pt-4">
                                     <div className="flex justify-between font-medium">
                                         <span>Total</span>
-                                        <span>${total.toFixed(2)}</span>
+                                        <span>₵{total.toFixed(2)}</span>
                                     </div>
                                 </div>
                             </CardContent>

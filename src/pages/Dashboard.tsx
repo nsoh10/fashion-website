@@ -2,12 +2,16 @@ import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, Package, Heart, Settings, LogOut } from 'lucide-react';
+import { User, Package, Heart, Settings, LogOut, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate(-1);
+    };
 
     const handleLogout = () => {
         logout();
@@ -20,9 +24,17 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-background p-4">
-            <div className="container mx-auto max-w-4xl">
-                <div className="flex items-center justify-between mb-8">
+        <div className="min-h-screen bg-background p-4 md:p-8">
+            <div className="container mx-auto max-w-6xl">
+                <Button 
+                    variant="ghost" 
+                    onClick={handleBack}
+                    className="mb-6 flex items-center gap-2"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Back
+                </Button>
+                <div className="flex flex-col md:flex-row gap-8">
                     <div>
                         <h1 className="text-3xl font-serif">My Account</h1>
                         <p className="text-muted-foreground">Welcome back, {user.name}</p>

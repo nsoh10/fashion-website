@@ -142,7 +142,7 @@ const Portfolio = () => {
                                     {item.description}
                                 </p>
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-lg font-semibold">${item.price}</span>
+                                    <span className="text-lg font-semibold">₵{item.price}</span>
                                     <Button
                                         size="sm"
                                         variant="outline"
