@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Threadz BiGaskins Fashion Brand Design System */
+
+@layer base {
+    :root {
+        /* Brand Colors */
+        --background: 0 0% 100%;
+        --foreground: 0 0% 5%;
+
+        /* Luxury Fashion Palette */
+        --primary: 0 0% 9%;           /* Deep Black */
+        --primary-foreground: 0 0% 98%;
+
+        --secondary: 45 100% 50%;      /* Luxury Gold */
+        --secondary-foreground: 0 0% 9%;
+
+        --accent: 345 83% 47%;         /* Fashion Burgundy */
+        --accent-foreground: 0 0% 98%;
+
+        --muted: 0 0% 96%;
+        --muted-foreground: 0 0% 45%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 5%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 5%;
+
+        --border: 0 0% 90%;
+        --input: 0 0% 90%;
+        --ring: 0 0% 9%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        --radius: 0.75rem;
+
+        /* Custom Fashion Properties */
+        --fashion-gradient: linear-gradient(135deg, hsl(0 0% 9%) 0%, hsl(345 83% 47%) 100%);
+        --gold-gradient: linear-gradient(135deg, hsl(45 100% 50%) 0%, hsl(45 100% 60%) 100%);
+        --elegant-shadow: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+        --luxury-shadow: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 10px 10px -5px hsl(0 0% 0% / 0.04);
+        --transition-luxury: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .dark {
+        --background: 0 0% 5%;
+        --foreground: 0 0% 98%;
+
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+
+        --secondary: 45 100% 55%;
+        --secondary-foreground: 0 0% 9%;
+
+        --accent: 345 83% 52%;
+        --accent-foreground: 0 0% 98%;
+
+        --muted: 0 0% 15%;
+        --muted-foreground: 0 0% 60%;
+
+        --card: 0 0% 8%;
+        --card-foreground: 0 0% 95%;
+
+        --popover: 0 0% 8%;
+        --popover-foreground: 0 0% 95%;
+
+        --border: 0 0% 20%;
+        --input: 0 0% 20%;
+        --ring: 0 0% 98%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-background text-foreground font-light antialiased;
+        font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
+        @apply font-medium;
+    }
+}
+
+@layer components {
+    .luxury-gradient {
+        background: var(--fashion-gradient);
+    }
+
+    .gold-gradient {
+        background: var(--gold-gradient);
+    }
+
+    .elegant-shadow {
+        box-shadow: var(--elegant-shadow);
+    }
+
+    .luxury-shadow {
+        box-shadow: var(--luxury-shadow);
+    }
+
+    .transition-luxury {
+        transition: var(--transition-luxury);
+    }
+
+    .text-gradient {
+        @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+    }
+
+    .glass-effect {
+        @apply backdrop-blur-md bg-white/10 border border-white/20;
+    }
+}
