@@ -72,7 +72,19 @@ const Cart = () => {
                             <Card key={item.id} className="overflow-hidden">
                                 <CardContent className="p-6">
                                     <div className="flex gap-4">
-                                        <div className="w-24 h-24 bg-muted rounded-md flex-shrink-0"></div>
+                                        <div className="w-24 h-24 bg-muted rounded-md flex-shrink-0 overflow-hidden">
+                                            {item.image ? (
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name} 
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                                                    <ShoppingBag className="w-6 h-6 text-muted-foreground" />
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className="flex-1">
                                             <h3 className="font-serif text-lg">{item.name}</h3>
                                             <p className="text-muted-foreground">

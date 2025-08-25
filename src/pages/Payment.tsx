@@ -7,22 +7,48 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { CreditCard, Lock, ArrowLeft } from 'lucide-react';
+import { CreditCard, Lock, ArrowLeft, Smartphone, Wifi, Phone } from 'lucide-react';
 
 const Payment = () => {
+    const [paymentMethod, setPaymentMethod] = useState('card');
     const [paymentData, setPaymentData] = useState({
         email: '',
         firstName: '',
         lastName: '',
         address: '',
         city: '',
-        state: '',
-        zipCode: '',
+        region: '',
+        landmark: '',
+        gps: '',
+        // Card details
         cardNumber: '',
         expiryDate: '',
         cvv: '',
         nameOnCard: '',
+        // Mobile money details
+        mobileNumber: '',
+        mobileNetwork: 'mtn',
     });
+
+    const ghanaRegions = [
+        'Greater Accra',
+        'Ashanti',
+        'Western',
+        'Central',
+        'Eastern',
+        'Volta',
+        'Northern',
+        'Upper East',
+        'Upper West',
+        'Bono',
+        'Bono East',
+        'Ahafo',
+        'Savannah',
+        'North East',
+        'Oti',
+        'Western North'
+    ];
+
     const [isProcessing, setIsProcessing] = useState(false);
     const { items, total, clearCart } = useCart();
     const { toast } = useToast();
@@ -125,36 +151,50 @@ const Payment = () => {
                                             required
                                         />
                                     </div>
-                                    <div className="grid grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <Label htmlFor="city">City</Label>
+                                            <Label htmlFor="city">City/Town</Label>
                                             <Input
                                                 id="city"
                                                 value={paymentData.city}
                                                 onChange={(e) => handleInputChange('city', e.target.value)}
+                                                placeholder="e.g., Accra, Kumasi"
                                                 required
                                             />
                                         </div>
                                         <div>
-                                            <Label htmlFor="state">State</Label>
-                                            <Select onValueChange={(value) => handleInputChange('state', value)}>
+                                            <Label htmlFor="region">Region</Label>
+                                            <Select onValueChange={(value) => handleInputChange('region', value)}>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select state" />
+                                                    <SelectValue placeholder="Select region" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="ca">California</SelectItem>
-                                                    <SelectItem value="ny">New York</SelectItem>
-                                                    <SelectItem value="tx">Texas</SelectItem>
+                                                    {ghanaRegions.map(region => (
+                                                        <SelectItem key={region} value={region.toLowerCase().replace(/\s+/g, '-')}>
+                                                            {region}
+                                                        </SelectItem>
+                                                    ))}
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <Label htmlFor="zipCode">ZIP Code</Label>
+                                            <Label htmlFor="landmark">Nearest Landmark</Label>
                                             <Input
-                                                id="zipCode"
-                                                value={paymentData.zipCode}
-                                                onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                                                required
+                                                id="landmark"
+                                                value={paymentData.landmark}
+                                                onChange={(e) => handleInputChange('landmark', e.target.value)}
+                                                placeholder="e.g., Near Accra Mall, Opposite Shell"
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="gps">GPS Address (Optional)</Label>
+                                            <Input
+                                                id="gps"
+                                                value={paymentData.gps}
+                                                onChange={(e) => handleInputChange('gps', e.target.value)}
+                                                placeholder="e.g., GA-123-4567"
                                             />
                                         </div>
                                     </div>
@@ -163,53 +203,132 @@ const Payment = () => {
 
                             <Card>
                                 <CardHeader>
-                                    <CardTitle className="font-serif flex items-center gap-2">
-                                        <CreditCard className="w-5 h-5" />
-                                        Payment Information
-                                    </CardTitle>
+                                    <CardTitle className="font-serif">Payment Method</CardTitle>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                        <button
+                                            type="button"
+                                            onClick={() => setPaymentMethod('card')}
+                                            className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${paymentMethod === 'card' ? 'border-primary bg-primary/5' : 'border-muted hover:border-primary/50'}`}
+                                        >
+                                            <CreditCard className="w-6 h-6 mb-2" />
+                                            <span>Credit/Debit Card</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setPaymentMethod('mtn')}
+                                            className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${paymentMethod === 'mtn' ? 'border-yellow-500 bg-yellow-500/5' : 'border-muted hover:border-yellow-500/50'}`}
+                                        >
+                                            <Smartphone className="w-6 h-6 mb-2 text-yellow-500" />
+                                            <span>MTN Mobile Money</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setPaymentMethod('vodafone')}
+                                            className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${paymentMethod === 'vodafone' ? 'border-red-500 bg-red-500/5' : 'border-muted hover:border-red-500/50'}`}
+                                        >
+                                            <Wifi className="w-6 h-6 mb-2 text-red-500" />
+                                            <span>Vodafone Cash</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setPaymentMethod('airteltigo')}
+                                            className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${paymentMethod === 'airteltigo' ? 'border-blue-500 bg-blue-500/5' : 'border-muted hover:border-blue-500/50'}`}
+                                        >
+                                            <Phone className="w-6 h-6 mb-2 text-blue-500" />
+                                            <span>AirtelTigo Money</span>
+                                        </button>
+                                    </div>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
-                                    <div>
-                                        <Label htmlFor="nameOnCard">Name on Card</Label>
-                                        <Input
-                                            id="nameOnCard"
-                                            value={paymentData.nameOnCard}
-                                            onChange={(e) => handleInputChange('nameOnCard', e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <Label htmlFor="cardNumber">Card Number</Label>
-                                        <Input
-                                            id="cardNumber"
-                                            placeholder="1234 5678 9012 3456"
-                                            value={paymentData.cardNumber}
-                                            onChange={(e) => handleInputChange('cardNumber', e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <Label htmlFor="expiryDate">Expiry Date</Label>
-                                            <Input
-                                                id="expiryDate"
-                                                placeholder="MM/YY"
-                                                value={paymentData.expiryDate}
-                                                onChange={(e) => handleInputChange('expiryDate', e.target.value)}
-                                                required
-                                            />
+                                    {paymentMethod === 'card' ? (
+                                        <>
+                                            <div>
+                                                <Label htmlFor="nameOnCard">Name on Card</Label>
+                                                <Input
+                                                    id="nameOnCard"
+                                                    value={paymentData.nameOnCard}
+                                                    onChange={(e) => handleInputChange('nameOnCard', e.target.value)}
+                                                    required={paymentMethod === 'card'}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Label htmlFor="cardNumber">Card Number</Label>
+                                                <Input
+                                                    id="cardNumber"
+                                                    placeholder="1234 5678 9012 3456"
+                                                    value={paymentData.cardNumber}
+                                                    onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+                                                    required={paymentMethod === 'card'}
+                                                />
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <Label htmlFor="expiryDate">Expiry Date</Label>
+                                                    <Input
+                                                        id="expiryDate"
+                                                        placeholder="MM/YY"
+                                                        value={paymentData.expiryDate}
+                                                        onChange={(e) => handleInputChange('expiryDate', e.target.value)}
+                                                        required={paymentMethod === 'card'}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <Label htmlFor="cvv">CVV</Label>
+                                                    <Input
+                                                        id="cvv"
+                                                        placeholder="123"
+                                                        value={paymentData.cvv}
+                                                        onChange={(e) => handleInputChange('cvv', e.target.value)}
+                                                        required={paymentMethod === 'card'}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            <div>
+                                                <Label>Mobile Number</Label>
+                                                <div className="flex gap-2
+">
+                                                    <div className="w-32
+">
+                                                        <Select 
+                                                            value={paymentData.mobileNetwork}
+                                                            onValueChange={(value) => handleInputChange('mobileNetwork', value)}
+                                                        >
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Network" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="mtn">MTN</SelectItem>
+                                                                <SelectItem value="vodafone">Vodafone</SelectItem>
+                                                                <SelectItem value="airteltigo">AirtelTigo</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </div>
+                                                    <Input
+                                                        type="tel"
+                                                        placeholder="e.g., 0244 123 4567"
+                                                        value={paymentData.mobileNumber}
+                                                        onChange={(e) => handleInputChange('mobileNumber', e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-700 dark:text-blue-300">
+                                                <p>You will receive a payment request on your mobile number to complete the transaction.</p>
+                                                {paymentMethod === 'mtn' && (
+                                                    <p className="mt-2 font-medium">Dial *170# to check your balance or make payments.</p>
+                                                )}
+                                                {paymentMethod === 'vodafone' && (
+                                                    <p className="mt-2 font-medium">Dial *110# to check your balance or make payments.</p>
+                                                )}
+                                                {paymentMethod === 'airteltigo' && (
+                                                    <p className="mt-2 font-medium">Dial *110# to check your balance or make payments.</p>
+                                                )}
+                                            </div>
                                         </div>
-                                        <div>
-                                            <Label htmlFor="cvv">CVV</Label>
-                                            <Input
-                                                id="cvv"
-                                                placeholder="123"
-                                                value={paymentData.cvv}
-                                                onChange={(e) => handleInputChange('cvv', e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
+                                    )}
                                 </CardContent>
                             </Card>
 
