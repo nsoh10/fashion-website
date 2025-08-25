@@ -164,7 +164,7 @@ const Footer = () => {
                 {/* Bottom Footer */}
                 <div className="py-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center">
                     <div className="text-primary-foreground/80 text-sm">
-                        2024 Threadz BiGaskins. All rights reserved.
+                        2025 Threadz BiGaskins. All rights reserved.
                     </div>
                     <div className="flex space-x-6 mt-4 md:mt-0 text-sm">
                         <a href="#" className="text-primary-foreground/80 hover:text-secondary transition-luxury">

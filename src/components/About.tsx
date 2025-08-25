@@ -17,7 +17,7 @@ const About = () => {
         },
         {
             icon: <Clock className="w-6 h-6" />,
-            title: "15+ Years Experience",
+            title: "3+ Years Experience",
             description: "Over a decade of expertise in luxury fashion and design.",
         },
         {
