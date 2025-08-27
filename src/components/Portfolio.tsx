@@ -139,15 +139,6 @@ const Portfolio = () => {
     
     const portfolioItems = [
         {
-            id: 1,
-            title: "Elegant Evening Gown",
-            category: "Evening Wear",
-            image: img1,
-            description: "Stunning evening gown with intricate detailing and flowing silhouette.",
-            tags: ["Luxury", "Evening", "Formal"],
-            price: 1499.99,
-        },
-        {
             id: 2,
             title: "Asoebi Collection",
             category: "Traditional",
@@ -184,15 +175,6 @@ const Portfolio = () => {
             price: 599.99,
         },
         {
-            id: 6,
-            title: "Party Collection",
-            category: "Party Wear",
-            image: img6,
-            description: "Show-stopping outfits for your special nights out.",
-            tags: ["Party", "Glamorous", "Trendy"],
-            price: 1399.99,
-        },
-        {
             id: 7,
             title: "Formal Attire",
             category: "Formal",
@@ -200,15 +182,6 @@ const Portfolio = () => {
             description: "Classic formal wear for important events and occasions.",
             tags: ["Formal", "Classic", "Elegant"],
             price: 1599.99,
-        },
-        {
-            id: 8,
-            title: "Evening Glam",
-            category: "Evening Wear",
-            image: img8,
-            description: "Glamorous evening wear that makes a statement.",
-            tags: ["Evening", "Glamour", "Luxury"],
-            price: 1799.99,
         },
         {
             id: 9,
@@ -227,15 +200,6 @@ const Portfolio = () => {
             description: "Casual wear for everyday comfort.",
             tags: ["Casual", "Comfort", "Chic"],
             price: 599.99,
-        },
-        {
-            id: 11,
-            title: "Party Collection",
-            category: "Party",
-            image: party1,
-            description: "Show-stopping outfits for your special nights out.",
-            tags: ["Party", "Glamorous", "Trendy"],
-            price: 1299.99,
         },
         {
             id: 12,
