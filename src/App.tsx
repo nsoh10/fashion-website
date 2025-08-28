@@ -2,18 +2,32 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { useEffect, useState } from "react";
-import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Cart from "./pages/Cart";
-import Payment from "./pages/Payment";
-import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/NotFound";
+import { useEffect, useState, lazy, Suspense } from "react";
+import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
+
+// Layouts
+const AdminLayout = lazy(() => import("@/components/admin/AdminLayout"));
+
+// Pages
+const Index = lazy(() => import("./pages/Index"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Payment = lazy(() => import("./pages/Payment"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const CheckoutPage = lazy(() => import("@/pages/checkout/CheckoutPage"));
+const OrderConfirmation = lazy(() => import("@/pages/OrderConfirmation"));
+
+// Admin Pages
+const AdminDashboard = lazy(() => import("@/pages/admin/DashboardPage"));
+const UsersPage = lazy(() => import("@/pages/admin/UsersPage"));
+const ProductsPage = lazy(() => import("@/pages/admin/ProductsPage"));
+const OrdersPage = lazy(() => import("@/pages/admin/OrdersPage"));
 
 const queryClient = new QueryClient();
 
@@ -41,16 +55,37 @@ const App = () => {
                         <Toaster />
                         <Sonner />
                         <BrowserRouter>
-                            <Routes>
-                                <Route path="/" element={<Index />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/signup" element={<Signup />} />
-                                <Route path="/cart" element={<Cart />} />
-                                <Route path="/payment" element={<Payment />} />
-                                <Route path="/dashboard" element={<Dashboard />} />
-                                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                                <Route path="*" element={<NotFound />} />
-                            </Routes>
+                            <Suspense fallback={<LoadingSpinner />}>
+                                <Routes>
+                                    <Route path="/" element={<Index />} />
+                                    <Route path="/login" element={<Login />} />
+                                    <Route path="/signup" element={<Signup />} />
+                                    <Route path="/cart" element={<Cart />} />
+                                    <Route path="/checkout" element={<CheckoutPage />} />
+                                    <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                                    <Route path="/payment" element={<Payment />} />
+                                    <Route path="/dashboard" element={<Dashboard />} />
+                                    
+                                    {/* Admin Routes */}
+                                    <Route 
+                                        path="/admin" 
+                                        element={
+                                            <ProtectedRoute adminOnly>
+                                                <AdminLayout />
+                                            </ProtectedRoute>
+                                        }
+                                    >
+                                        <Route index element={<Navigate to="dashboard" replace />} />
+                                        <Route path="dashboard" element={<AdminDashboard />} />
+                                        <Route path="users" element={<UsersPage />} />
+                                        <Route path="products" element={<ProductsPage />} />
+                                        <Route path="orders" element={<OrdersPage />} />
+                                    </Route>
+                                    
+                                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                                    <Route path="*" element={<NotFound />} />
+                                </Routes>
+                            </Suspense>
                         </BrowserRouter>
                     </CartProvider>
                 </AuthProvider>

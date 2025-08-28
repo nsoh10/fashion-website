@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ShoppingCart, User } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 
@@ -56,12 +56,22 @@ const Navigation = () => {
                             </Button>
                         </Link>
                         {user ? (
-                            <Link to="/dashboard">
-                                <Button variant="ghost" size="sm">
-                                    <User className="w-4 h-4 mr-2" />
-                                    {user.name.split(' ')[0]}
-                                </Button>
-                            </Link>
+                            <div className="flex items-center space-x-2">
+                                {user.role === 'admin' && (
+                                    <Link to="/admin" className="hidden md:block">
+                                        <Button variant="ghost" size="sm" className="text-accent">
+                                            <LayoutDashboard className="w-4 h-4 mr-1" />
+                                            Admin
+                                        </Button>
+                                    </Link>
+                                )}
+                                <Link to="/dashboard">
+                                    <Button variant="ghost" size="sm">
+                                        <User className="w-4 h-4 mr-2" />
+                                        {user.name.split(' ')[0]}
+                                    </Button>
+                                </Link>
+                            </div>
                         ) : (
                             <Link to="/login">
                                 <Button variant="elegant" size="sm">
@@ -102,12 +112,22 @@ const Navigation = () => {
                                     </Button>
                                 </Link>
                                 {user ? (
-                                    <Link to="/dashboard">
-                                        <Button variant="ghost" size="sm" className="w-full justify-start">
-                                            <User className="w-4 h-4 mr-2" />
-                                            My Account
-                                        </Button>
-                                    </Link>
+                                    <>
+                                        {user.role === 'admin' && (
+                                            <Link to="/admin" onClick={() => setIsOpen(false)}>
+                                                <Button variant="ghost" size="sm" className="w-full justify-start">
+                                                    <LayoutDashboard className="w-4 h-4 mr-2" />
+                                                    Admin Dashboard
+                                                </Button>
+                                            </Link>
+                                        )}
+                                        <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                                            <Button variant="ghost" size="sm" className="w-full justify-start">
+                                                <User className="w-4 h-4 mr-2" />
+                                                My Account
+                                            </Button>
+                                        </Link>
+                                    </>
                                 ) : (
                                     <Link to="/login">
                                         <Button variant="elegant" size="sm" className="w-full">
