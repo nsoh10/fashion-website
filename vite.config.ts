@@ -21,5 +21,6 @@ export default defineConfig(({ mode }) => ({
         alias: {
             "@": resolve(__dirname, "src"),
         },
+        caseSensitive: true,
     },
 }));

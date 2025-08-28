@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Checkbox from '@/components/ui/Checkbox';
+import Checkbox from '@/components/ui/Checkbox'; // Using correct case
 
 type FormData = {
   firstName: string;
