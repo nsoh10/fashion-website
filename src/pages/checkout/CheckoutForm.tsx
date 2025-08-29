@@ -17,9 +17,13 @@ type FormData = {
   saveInfo: boolean;
 };
 
+type FormEvent = 
+  | React.ChangeEvent<HTMLInputElement> 
+  | { target: { name: string; value: string | boolean } };
+
 type CheckoutFormProps = {
   formData: FormData;
-  onChange: (e: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }) => void;
+  onChange: (e: FormEvent) => void;
 };
 
 export const CheckoutForm = ({ formData, onChange }: CheckoutFormProps) => {
@@ -29,7 +33,7 @@ export const CheckoutForm = ({ formData, onChange }: CheckoutFormProps) => {
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    onChange({ target: { name, value: checked } } as any);
+    onChange({ target: { name, value: checked } });
   };
 
   return (
