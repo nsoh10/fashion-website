@@ -1,6 +1,7 @@
-// This component is temporarily disabled for deployment
-// It will be re-enabled after the deployment is successful
+import React from 'react';
 
-export default function CheckoutForm() {
-  return null;
-}
+const CheckoutForm: React.FC = () => {
+  return <div>Checkout form is temporarily unavailable</div>;
+};
+
+export default CheckoutForm;
