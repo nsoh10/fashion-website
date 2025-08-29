@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Checkbox from '@/components/ui/checkbox';
+// import Checkbox from '@/components/ui/checkbox';  // Temporarily commented out for deployment
 
 type FormData = {
   firstName: string;
@@ -155,6 +155,7 @@ export const CheckoutForm = ({ formData, onChange }: CheckoutFormProps) => {
         />
       </div>
 
+      {/* Temporarily commented out for deployment
       <div className="flex items-center space-x-2 pt-2">
         <Checkbox
           id="saveInfo"
@@ -171,6 +172,7 @@ export const CheckoutForm = ({ formData, onChange }: CheckoutFormProps) => {
           Save this information for next time
         </label>
       </div>
+      */}
     </div>
   );
 };
