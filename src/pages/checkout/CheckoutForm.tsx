@@ -1,3 +1,5 @@
+// Temporarily commenting out the entire CheckoutForm component for deployment
+/*
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -182,3 +184,4 @@ export const CheckoutForm = ({ formData, onChange }: CheckoutFormProps) => {
 };
 
 export default CheckoutForm;
+*/
