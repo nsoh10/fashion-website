@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ShoppingCart, User, LayoutDashboard } from 'lucide-react';
+import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react';
+import { UserAvatar } from './UserAvatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 
@@ -65,11 +66,13 @@ const Navigation = () => {
                                         </Button>
                                     </Link>
                                 )}
-                                <Link to="/dashboard">
-                                    <Button variant="ghost" size="sm">
-                                        <User className="w-4 h-4 mr-2" />
-                                        {user.name.split(' ')[0]}
-                                    </Button>
+                                <Link to="/dashboard" className="flex items-center space-x-2">
+                                    <UserAvatar 
+                                        name={user.name} 
+                                        gender="other" 
+                                        className="h-8 w-8"
+                                    />
+                                    <span>{user.name.split(' ')[0]}</span>
                                 </Link>
                             </div>
                         ) : (

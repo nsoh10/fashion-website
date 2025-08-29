@@ -18,6 +18,7 @@ import {
   Calendar,
   MoreVertical
 } from 'lucide-react';
+import { UserAvatar } from '@/components/UserAvatar';
 import {
   LineChart,
   Line,
@@ -432,10 +433,13 @@ const DashboardPage = () => {
                 <span className="text-sm font-semibold">1,234</span>
               </div>
               <div className="flex -space-x-2">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center border-2 border-background">
-                    <User className="h-4 w-4 text-primary" />
-                  </div>
+                {['John D', 'Jane S', 'Alex M', 'Sam W', 'Taylor R'].map((name, i) => (
+                  <UserAvatar 
+                    key={i}
+                    name={name}
+                    gender={name.includes('Jane') || name.includes('Taylor') ? 'female' : 'male'}
+                    className="h-8 w-8 border-2 border-background"
+                  />
                 ))}
                 <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs font-medium">
                   +12
@@ -459,9 +463,11 @@ const DashboardPage = () => {
                 <div key={activity.id} className="p-4 hover:bg-muted/50 transition-colors">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-3">
-                      <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-                        <User className="h-5 w-5 text-muted-foreground" />
-                      </div>
+                      <UserAvatar 
+                        name={activity.user}
+                        gender={activity.user.includes('Jane') || activity.user.includes('Sarah') ? 'female' : 'male'}
+                        className="h-10 w-10"
+                      />
                       <div>
                         <p className="text-sm font-medium">
                           <span className="font-semibold">{activity.user}</span> {activity.action}

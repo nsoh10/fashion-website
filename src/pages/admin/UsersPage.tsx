@@ -9,7 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Search, Plus, Edit, Trash2, User } from 'lucide-react';
+import { Search, Plus, Edit, Trash2 } from 'lucide-react';
+import { UserAvatar } from '@/components/UserAvatar';
 
 // Mock data - in a real app, this would come from an API
 const mockUsers = [
@@ -69,10 +70,15 @@ export const UsersPage = () => {
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <User className="h-4 w-4 text-primary" />
+                      <UserAvatar 
+                        name={user.name} 
+                        gender={user.name.toLowerCase().includes('jane') ? 'female' : 'male'}
+                        className="h-8 w-8"
+                      />
+                      <div>
+                        <div className="font-medium">{user.name}</div>
+                        <div className="text-xs text-muted-foreground">ID: {user.id}</div>
                       </div>
-                      {user.name}
                     </div>
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
